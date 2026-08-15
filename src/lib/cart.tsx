@@ -64,11 +64,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       close: () => setIsOpen(false),
       add: (product, size) => {
         setLines((prev) => {
-          const idx = prev.findIndex((l) => l.slug === product.slug && l.size === size);
-          if (idx > -1) {
-            const next = [...prev];
-            next[idx] = { ...next[idx], qty: next[idx].qty + 1 };
-            return next;
+          const existing = prev.find((l) => l.slug === product.slug && l.size === size);
+          if (existing) {
+            return prev.map((l) =>
+              l.slug === product.slug && l.size === size ? { ...l, qty: l.qty + 1 } : l,
+            );
           }
           return [
             ...prev,

@@ -27,13 +27,17 @@ export function Header() {
           {menu ? <X /> : <Menu />}
         </button>
 
-        <Link to="/" className="flex items-center" aria-label="Gor Fashion House home">
+        <Link
+          to="/"
+          className="flex items-center bg-ink px-2 py-1"
+          aria-label="Gor Fashion House home"
+        >
           <img
             src={gorLogo.url}
             alt="Gor Fashion House"
             width={1248}
             height={1248}
-            className="h-10 w-auto sm:h-12"
+            className="h-9 w-auto object-contain sm:h-11"
           />
         </Link>
 

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import gorLogo from "@/assets/gor-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Countdown } from "@/components/Countdown";
 import { SALE_ENDS_AT } from "@/lib/products";
@@ -23,9 +24,14 @@ export function Footer() {
       <footer className="border-t border-border px-4 py-10">
         <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-3">
           <div>
-            <p className="font-display text-lg">
-              GOR<span className="text-primary">.</span>
-            </p>
+            <img
+              src={gorLogo.url}
+              alt="Gor Fashion House"
+              width={1248}
+              height={1248}
+              loading="lazy"
+              className="h-20 w-auto bg-ink object-contain p-2"
+            />
             <p className="mt-2 max-w-xs text-sm text-muted-foreground">
               Gor Fashion House isn't for blending in. Every print's a statement.
             </p>

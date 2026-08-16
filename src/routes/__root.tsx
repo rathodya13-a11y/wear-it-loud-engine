@@ -16,6 +16,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { CartProvider } from "@/lib/cart";
+import { InventoryProvider } from "@/lib/inventory";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -100,7 +101,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
@@ -128,17 +129,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <AnnouncementBar />
-        <Header />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
-        <CartDrawer />
-        <Toaster />
-      </CartProvider>
+      <InventoryProvider>
+        <CartProvider>
+          <AnnouncementBar />
+          <Header />
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
+          <CartDrawer />
+          <Toaster />
+        </CartProvider>
+      </InventoryProvider>
     </QueryClientProvider>
   );
 }

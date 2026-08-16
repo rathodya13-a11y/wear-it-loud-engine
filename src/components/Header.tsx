@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
+import gorLogo from "@/assets/gor-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart";
 
@@ -26,8 +27,18 @@ export function Header() {
           {menu ? <X /> : <Menu />}
         </button>
 
-        <Link to="/" className="font-display text-lg tracking-tight sm:text-xl">
-          GOR<span className="text-primary">.</span>
+        <Link
+          to="/"
+          className="flex items-center bg-ink px-2 py-1"
+          aria-label="Gor Fashion House home"
+        >
+          <img
+            src={gorLogo.url}
+            alt="Gor Fashion House"
+            width={1248}
+            height={1248}
+            className="h-9 w-auto object-contain sm:h-11"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

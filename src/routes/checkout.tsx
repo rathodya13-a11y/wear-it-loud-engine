@@ -19,7 +19,7 @@ export const Route = createFileRoute("/checkout")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: Checkout;
+  component: Checkout,
 });
 
 function Checkout() {

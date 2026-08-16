@@ -69,9 +69,10 @@ function ProductPage() {
   useEffect(() => {
     const el = ctaRef.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => setShowSticky(!entry.isIntersecting), {
-      threshold: 0,
-    });
+    const obs = new IntersectionObserver(
+      (entries) => setShowSticky(entries[0] ? !entries[0].isIntersecting : false),
+      { threshold: 0 },
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);

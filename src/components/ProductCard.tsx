@@ -2,15 +2,17 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart";
-import { SIZES, formatINR, totalStock, type Product } from "@/lib/products";
+import { useStock } from "@/lib/inventory";
+import { SIZES, formatINR, type Product } from "@/lib/products";
 import { cn } from "@/lib/utils";
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
   const { add } = useCart();
   const [hover, setHover] = useState(false);
-  const left = totalStock(product);
+  const stock = useStock(product);
+  const left = SIZES.reduce((sum, s) => sum + stock[s], 0);
   const discount = Math.round(((product.mrp - product.price) / product.mrp) * 100);
-  const firstInStock = SIZES.find((s) => product.stock[s] > 0);
+  const firstInStock = SIZES.find((s) => stock[s] > 0);
 
   return (
     <article

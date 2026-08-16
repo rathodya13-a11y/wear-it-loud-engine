@@ -14,13 +14,130 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      inventory: {
+        Row: {
+          product_slug: string
+          size: string
+          stock: number
+          updated_at: string
+        }
+        Insert: {
+          product_slug: string
+          size: string
+          stock?: number
+          updated_at?: string
+        }
+        Update: {
+          product_slug?: string
+          size?: string
+          stock?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          address: string
+          city: string
+          created_at: string
+          discount: number
+          email: string
+          full_name: string
+          id: string
+          items: Json
+          order_code: string
+          phone: string
+          pin: string
+          promo_code: string | null
+          shipping: number
+          status: string
+          subtotal: number
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          address: string
+          city: string
+          created_at?: string
+          discount?: number
+          email: string
+          full_name: string
+          id?: string
+          items?: Json
+          order_code: string
+          phone: string
+          pin: string
+          promo_code?: string | null
+          shipping?: number
+          status?: string
+          subtotal: number
+          total: number
+          updated_at?: string
+        }
+        Update: {
+          address?: string
+          city?: string
+          created_at?: string
+          discount?: number
+          email?: string
+          full_name?: string
+          id?: string
+          items?: Json
+          order_code?: string
+          phone?: string
+          pin?: string
+          promo_code?: string | null
+          shipping?: number
+          status?: string
+          subtotal?: number
+          total?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      promo_codes: {
+        Row: {
+          active: boolean
+          code: string
+          created_at: string
+          expires_at: string | null
+          kind: string
+          min_subtotal: number
+          value: number
+        }
+        Insert: {
+          active?: boolean
+          code: string
+          created_at?: string
+          expires_at?: string | null
+          kind: string
+          min_subtotal?: number
+          value: number
+        }
+        Update: {
+          active?: boolean
+          code?: string
+          created_at?: string
+          expires_at?: string | null
+          kind?: string
+          min_subtotal?: number
+          value?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      track_order: {
+        Args: { _email: string; _order_code: string }
+        Returns: Json
+      }
+      validate_promo: {
+        Args: { _code: string; _subtotal: number }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never

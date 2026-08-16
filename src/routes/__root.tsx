@@ -16,6 +16,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { CartProvider } from "@/lib/cart";
+import { InventoryProvider } from "@/lib/inventory";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -128,17 +129,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <AnnouncementBar />
-        <Header />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
-        <CartDrawer />
-        <Toaster />
-      </CartProvider>
+      <InventoryProvider>
+        <CartProvider>
+          <AnnouncementBar />
+          <Header />
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
+          <CartDrawer />
+          <Toaster />
+        </CartProvider>
+      </InventoryProvider>
     </QueryClientProvider>
   );
 }

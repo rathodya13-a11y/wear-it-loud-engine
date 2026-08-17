@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      banners: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          message: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          message: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          message?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       inventory: {
         Row: {
           product_slug: string
@@ -95,6 +122,108 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          active: boolean
+          bestseller: boolean
+          blurb: string
+          care: string
+          category: string
+          created_at: string
+          fabric: string
+          fit: string
+          hover_image_url: string | null
+          id: string
+          image_url: string
+          mrp: number
+          name: string
+          price: number
+          print: string
+          rating: number
+          reviews: number
+          slug: string
+          stock: Json
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          bestseller?: boolean
+          blurb?: string
+          care?: string
+          category?: string
+          created_at?: string
+          fabric?: string
+          fit?: string
+          hover_image_url?: string | null
+          id?: string
+          image_url: string
+          mrp: number
+          name: string
+          price: number
+          print?: string
+          rating?: number
+          reviews?: number
+          slug: string
+          stock?: Json
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          bestseller?: boolean
+          blurb?: string
+          care?: string
+          category?: string
+          created_at?: string
+          fabric?: string
+          fit?: string
+          hover_image_url?: string | null
+          id?: string
+          image_url?: string
+          mrp?: number
+          name?: string
+          price?: number
+          print?: string
+          rating?: number
+          reviews?: number
+          slug?: string
+          stock?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          city: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          pin: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          pin?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          pin?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       promo_codes: {
         Row: {
           active: boolean
@@ -125,11 +254,72 @@ export type Database = {
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          brand_name: string
+          created_at: string
+          free_shipping_threshold: number
+          id: number
+          logo_url: string | null
+          sale_ends_at: string
+          tagline: string
+          updated_at: string
+        }
+        Insert: {
+          brand_name?: string
+          created_at?: string
+          free_shipping_threshold?: number
+          id?: number
+          logo_url?: string | null
+          sale_ends_at?: string
+          tagline?: string
+          updated_at?: string
+        }
+        Update: {
+          brand_name?: string
+          created_at?: string
+          free_shipping_threshold?: number
+          id?: number
+          logo_url?: string | null
+          sale_ends_at?: string
+          tagline?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       track_order: {
         Args: { _email: string; _order_code: string }
         Returns: Json
@@ -140,7 +330,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -267,6 +457,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const

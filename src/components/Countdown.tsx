@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
-function diff(target: string) {
+type Parts = { d: number; h: number; m: number; s: number; over: boolean };
+
+function diff(target: string): Parts {
   const ms = Math.max(0, new Date(target).getTime() - Date.now());
   return {
     d: Math.floor(ms / 86400000),
@@ -12,9 +14,19 @@ function diff(target: string) {
   };
 }
 
+/** Ticking clock that only runs after hydration, so SSR and client agree. */
+function useTick(endsAt: string): Parts | null {
+  const [t, setT] = useState<Parts | null>(null);
+  useEffect(() => {
+    setT(diff(endsAt));
+    const id = setInterval(() => setT(diff(endsAt)), 1000);
+    return () => clearInterval(id);
+  }, [endsAt]);
+  return t;
+}
+
 /** Flip/roll digit — remounts on value change so it animates in. */
-function Cell({ value, label, size }: { value: number; label: string; size: "sm" | "lg" }) {
-  const text = String(value).padStart(2, "0");
+function Cell({ value, label, size }: { value: string; label: string; size: "sm" | "lg" }) {
   return (
     <div className="flex flex-col items-center">
       <div
@@ -23,8 +35,8 @@ function Cell({ value, label, size }: { value: number; label: string; size: "sm"
           size === "lg" ? "min-w-14 text-2xl sm:min-w-16 sm:text-3xl" : "min-w-9 text-sm",
         )}
       >
-        <span key={text} className="block animate-flip">
-          {text}
+        <span key={value} className="block animate-flip">
+          {value}
         </span>
       </div>
       <span
@@ -48,37 +60,29 @@ export function Countdown({
   size?: "sm" | "lg";
   className?: string;
 }) {
-  const [t, setT] = useState(() => diff(endsAt));
+  const t = useTick(endsAt);
+  const pad = (n: number | null) => (n === null ? "--" : String(n).padStart(2, "0"));
 
-  useEffect(() => {
-    const id = setInterval(() => setT(diff(endsAt)), 1000);
-    return () => clearInterval(id);
-  }, [endsAt]);
-
-  if (t.over) return <span className="label-caps">Sale ended</span>;
+  if (t?.over) return <span className="label-caps">Sale ended</span>;
 
   return (
     <div className={cn("flex items-start gap-1.5", className)}>
-      <Cell value={t.d} label="Days" size={size} />
-      <Cell value={t.h} label="Hrs" size={size} />
-      <Cell value={t.m} label="Min" size={size} />
-      <Cell value={t.s} label="Sec" size={size} />
+      <Cell value={pad(t?.d ?? null)} label="Days" size={size} />
+      <Cell value={pad(t?.h ?? null)} label="Hrs" size={size} />
+      <Cell value={pad(t?.m ?? null)} label="Min" size={size} />
+      <Cell value={pad(t?.s ?? null)} label="Sec" size={size} />
     </div>
   );
 }
 
 /** Compact inline HH:MM:SS for the announcement bar. */
 export function InlineCountdown({ endsAt }: { endsAt: string }) {
-  const [t, setT] = useState(() => diff(endsAt));
-  useEffect(() => {
-    const id = setInterval(() => setT(diff(endsAt)), 1000);
-    return () => clearInterval(id);
-  }, [endsAt]);
-  if (t.over) return <span>Sale ended</span>;
+  const t = useTick(endsAt);
+  if (t?.over) return <span>Sale ended</span>;
   const pad = (n: number) => String(n).padStart(2, "0");
   return (
     <span className="tabular-nums">
-      {t.d}d {pad(t.h)}:{pad(t.m)}:{pad(t.s)}
+      {t ? `${t.d}d ${pad(t.h)}:${pad(t.m)}:${pad(t.s)}` : "--d --:--:--"}
     </span>
   );
 }

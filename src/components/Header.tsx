@@ -1,18 +1,22 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, ShoppingBag, X } from "lucide-react";
+import { Menu, ShoppingBag, User, X } from "lucide-react";
 import { useState } from "react";
-import gorLogo from "@/assets/gor-logo.png.asset.json";
+import gorLogo from "@/assets/gor-chrome-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart";
+import { useAuth } from "@/lib/auth";
+import { useSite } from "@/lib/site";
 
 const nav = [
   { to: "/shop", label: "Shop" },
   { to: "/about", label: "About" },
-  { to: "/contact", label: "Track / Contact" },
+  { to: "/track", label: "Track order" },
 ] as const;
 
 export function Header() {
   const { count, open } = useCart();
+  const { user, isAdmin } = useAuth();
+  const { settings } = useSite();
   const [menu, setMenu] = useState(false);
 
   return (

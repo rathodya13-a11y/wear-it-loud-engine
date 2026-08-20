@@ -24,7 +24,11 @@ export function CartDrawer() {
       >
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <p className="label-caps">Your bag</p>
-          <button onClick={close} aria-label="Close cart" className="flex h-11 w-11 items-center justify-center">
+          <button
+            onClick={close}
+            aria-label="Close cart"
+            className="flex h-11 w-11 items-center justify-center"
+          >
             <X />
           </button>
         </div>

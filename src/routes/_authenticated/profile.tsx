@@ -80,23 +80,55 @@ function ProfilePage() {
       <form className="mt-6 grid gap-3 sm:grid-cols-2" onSubmit={save}>
         <div className="sm:col-span-2">
           <Label htmlFor="full_name">Full name</Label>
-          <Input id="full_name" value={form.full_name} onChange={set("full_name")} className="mt-1 h-11" required />
+          <Input
+            id="full_name"
+            value={form.full_name}
+            onChange={set("full_name")}
+            className="mt-1 h-11"
+            required
+          />
         </div>
         <div>
           <Label htmlFor="phone">Phone</Label>
-          <Input id="phone" type="tel" value={form.phone} onChange={set("phone")} className="mt-1 h-11" required />
+          <Input
+            id="phone"
+            type="tel"
+            value={form.phone}
+            onChange={set("phone")}
+            className="mt-1 h-11"
+            required
+          />
         </div>
         <div>
           <Label htmlFor="city">City</Label>
-          <Input id="city" value={form.city} onChange={set("city")} className="mt-1 h-11" required />
+          <Input
+            id="city"
+            value={form.city}
+            onChange={set("city")}
+            className="mt-1 h-11"
+            required
+          />
         </div>
         <div className="sm:col-span-2">
           <Label htmlFor="address">Address</Label>
-          <Input id="address" value={form.address} onChange={set("address")} className="mt-1 h-11" required />
+          <Input
+            id="address"
+            value={form.address}
+            onChange={set("address")}
+            className="mt-1 h-11"
+            required
+          />
         </div>
         <div>
           <Label htmlFor="pin">PIN code</Label>
-          <Input id="pin" inputMode="numeric" value={form.pin} onChange={set("pin")} className="mt-1 h-11" required />
+          <Input
+            id="pin"
+            inputMode="numeric"
+            value={form.pin}
+            onChange={set("pin")}
+            className="mt-1 h-11"
+            required
+          />
         </div>
         <div className="sm:col-span-2 flex flex-wrap gap-2">
           <Button variant="sale" size="lg" type="submit" disabled={busy}>

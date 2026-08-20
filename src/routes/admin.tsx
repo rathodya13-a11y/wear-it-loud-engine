@@ -18,7 +18,10 @@ export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
       { title: "Admin dashboard — Gor Fashion House" },
-      { name: "description", content: "Manage branding, banners, promo codes, products and orders." },
+      {
+        name: "description",
+        content: "Manage branding, banners, promo codes, products and orders.",
+      },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Admin dashboard — Gor Fashion House" },
       { property: "og:description", content: "Internal control panel for Gor Fashion House." },
@@ -187,9 +190,7 @@ function BrandingPanel() {
             id="ship"
             type="number"
             value={form.free_shipping_threshold}
-            onChange={(e) =>
-              setForm({ ...form, free_shipping_threshold: Number(e.target.value) })
-            }
+            onChange={(e) => setForm({ ...form, free_shipping_threshold: Number(e.target.value) })}
           />
         </div>
       </div>
@@ -370,7 +371,8 @@ function PromosPanel() {
         {rows.map((row) => (
           <li key={row.code} className="flex items-center justify-between gap-3 py-3">
             <span className="text-sm">
-              <strong>{row.code}</strong> — {row.kind === "percent" ? `${row.value}% off` : `₹${row.value} off`}
+              <strong>{row.code}</strong> —{" "}
+              {row.kind === "percent" ? `${row.value}% off` : `₹${row.value} off`}
               {row.min_subtotal > 0 ? ` over ₹${row.min_subtotal}` : ""}
             </span>
             <Switch checked={row.active} onCheckedChange={() => void toggle(row)} />
@@ -629,7 +631,10 @@ function ProductsPanel() {
               <span className="text-sm">
                 {row.name} <span className="text-muted-foreground">/{row.slug}</span>
               </span>
-              <Switch checked={row.active} onCheckedChange={() => void toggle(row.slug, row.active)} />
+              <Switch
+                checked={row.active}
+                onCheckedChange={() => void toggle(row.slug, row.active)}
+              />
             </li>
           ))}
           {rows.length === 0 && (
@@ -704,7 +709,9 @@ function OrdersPanel() {
             </select>
           </li>
         ))}
-        {rows.length === 0 && <li className="py-3 text-sm text-muted-foreground">No orders yet.</li>}
+        {rows.length === 0 && (
+          <li className="py-3 text-sm text-muted-foreground">No orders yet.</li>
+        )}
       </ul>
     </Section>
   );

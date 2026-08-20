@@ -46,7 +46,10 @@ const reviews = [
 ];
 
 function Home() {
-  const best = products.filter((p) => p.bestseller).concat(products.slice(0, 4)).slice(0, 4);
+  const best = products
+    .filter((p) => p.bestseller)
+    .concat(products.slice(0, 4))
+    .slice(0, 4);
 
   return (
     <>

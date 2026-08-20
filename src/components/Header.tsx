@@ -33,15 +33,13 @@ export function Header() {
 
         <Link
           to="/"
-          className="flex items-center bg-ink px-2 py-1"
-          aria-label="Gor Fashion House home"
+          className="flex items-center bg-ink px-3 py-1"
+          aria-label={`${settings.brand_name} home`}
         >
           <img
-            src={gorLogo.url}
-            alt="Gor Fashion House"
-            width={1248}
-            height={1248}
-            className="h-9 w-auto object-contain sm:h-11"
+            src={settings.logo_url ?? gorLogo.url}
+            alt={settings.brand_name}
+            className="h-9 w-auto object-contain sm:h-12"
           />
         </Link>
 
@@ -56,12 +54,24 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          {isAdmin && (
+            <Link to="/admin" className="label-caps text-primary">
+              Admin
+            </Link>
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
           <Button variant="sale" size="sm" className="hidden sm:inline-flex" asChild>
             <Link to="/shop">Shop the sale</Link>
           </Button>
+          <Link
+            to={user ? "/profile" : "/auth"}
+            aria-label={user ? "Your account" : "Sign in"}
+            className="flex h-11 w-11 items-center justify-center"
+          >
+            <User />
+          </Link>
           <button
             onClick={open}
             aria-label={`Cart, ${count} items`}

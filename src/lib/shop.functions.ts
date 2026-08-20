@@ -31,8 +31,7 @@ const trackInput = z.object({
 });
 
 export type PromoResult =
-  | { ok: true; code: string; discount: number }
-  | { ok: false; message: string };
+  { ok: true; code: string; discount: number } | { ok: false; message: string };
 
 export const validatePromo = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => promoInput.parse(input))
@@ -134,7 +133,9 @@ export type TrackedOrder = {
 export const trackOrder = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => trackInput.parse(input))
   .handler(
-    async ({ data }): Promise<{ ok: true; order: TrackedOrder } | { ok: false; message: string }> => {
+    async ({
+      data,
+    }): Promise<{ ok: true; order: TrackedOrder } | { ok: false; message: string }> => {
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
       const { data: result, error } = await supabaseAdmin.rpc("track_order", {
         _order_code: data.orderCode,

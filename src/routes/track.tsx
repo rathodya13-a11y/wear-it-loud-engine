@@ -16,7 +16,8 @@ export const Route = createFileRoute("/track")({
       { title: "Track your order — Gor Fashion House" },
       {
         name: "description",
-        content: "Enter your order ID and email to see live status of your Gor Fashion House order.",
+        content:
+          "Enter your order ID and email to see live status of your Gor Fashion House order.",
       },
       { property: "og:title", content: "Track your order — Gor Fashion House" },
       { property: "og:description", content: "Live status for your Gor Fashion House order." },
@@ -86,7 +87,9 @@ function TrackPage() {
       </form>
 
       {error && (
-        <p className="label-caps mt-5 w-fit bg-primary px-2 py-1 text-primary-foreground">{error}</p>
+        <p className="label-caps mt-5 w-fit bg-primary px-2 py-1 text-primary-foreground">
+          {error}
+        </p>
       )}
       {order && <OrderSummary order={order} className="mt-8" />}
     </div>

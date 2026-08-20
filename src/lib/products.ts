@@ -183,7 +183,6 @@ export const products: Product[] = [
 
 export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
 
-export const totalStock = (p: Product) =>
-  SIZES.reduce((sum, size) => sum + p.stock[size], 0);
+export const totalStock = (p: Product) => SIZES.reduce((sum, size) => sum + p.stock[size], 0);
 
 export const formatINR = (value: number) => `₹${value.toLocaleString("en-IN")}`;

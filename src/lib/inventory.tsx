@@ -23,9 +23,7 @@ export function InventoryProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
 
     const load = async () => {
-      const { data, error } = await supabase
-        .from("inventory")
-        .select("product_slug, size, stock");
+      const { data, error } = await supabase.from("inventory").select("product_slug, size, stock");
       if (cancelled || error || !data) return;
       const next: StockMap = {};
       for (const row of data) {
@@ -44,25 +42,23 @@ export function InventoryProvider({ children }: { children: ReactNode }) {
 
     const channel = supabase
       .channel("inventory-live")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "inventory" },
-        (payload) => {
-          const row = (payload.new ?? payload.old) as
-            | { product_slug: string; size: string; stock: number }
-            | null;
-          if (!row) return;
-          const size = row.size as Size;
-          if (!SIZES.includes(size)) return;
-          setStock((prev) => ({
-            ...prev,
-            [row.product_slug]: {
-              ...(prev[row.product_slug] ?? ({} as Record<Size, number>)),
-              [size]: row.stock,
-            } as Record<Size, number>,
-          }));
-        },
-      )
+      .on("postgres_changes", { event: "*", schema: "public", table: "inventory" }, (payload) => {
+        const row = (payload.new ?? payload.old) as {
+          product_slug: string;
+          size: string;
+          stock: number;
+        } | null;
+        if (!row) return;
+        const size = row.size as Size;
+        if (!SIZES.includes(size)) return;
+        setStock((prev) => ({
+          ...prev,
+          [row.product_slug]: {
+            ...(prev[row.product_slug] ?? ({} as Record<Size, number>)),
+            [size]: row.stock,
+          } as Record<Size, number>,
+        }));
+      })
       .subscribe();
 
     return () => {

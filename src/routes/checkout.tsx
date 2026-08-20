@@ -152,9 +152,7 @@ function Checkout() {
           </div>
           <div className="flex justify-between font-bold">
             <dt>Total</dt>
-            <dd className="font-display text-lg text-primary">
-              {formatINR(subtotal + shipping)}
-            </dd>
+            <dd className="font-display text-lg text-primary">{formatINR(subtotal + shipping)}</dd>
           </div>
         </dl>
         {savings > 0 && (

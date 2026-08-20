@@ -18,14 +18,7 @@ import {
 import { Countdown } from "@/components/Countdown";
 import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/lib/cart";
-import {
-  SALE_ENDS_AT,
-  SIZES,
-  formatINR,
-  getProduct,
-  products,
-  type Size,
-} from "@/lib/products";
+import { SALE_ENDS_AT, SIZES, formatINR, getProduct, products, type Size } from "@/lib/products";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/product/$slug")({
@@ -37,7 +30,10 @@ export const Route = createFileRoute("/product/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Unavailable — Gor Fashion House" }, { name: "robots", content: "noindex" }],
+        meta: [
+          { title: "Unavailable — Gor Fashion House" },
+          { name: "robots", content: "noindex" },
+        ],
       };
     }
     const { product } = loaderData;
@@ -45,7 +41,10 @@ export const Route = createFileRoute("/product/$slug")({
     return {
       meta: [
         { title },
-        { name: "description", content: `${product.blurb} ${product.fabric}. Sale price ${formatINR(product.price)}.` },
+        {
+          name: "description",
+          content: `${product.blurb} ${product.fabric}. Sale price ${formatINR(product.price)}.`,
+        },
         { property: "og:title", content: title },
         { property: "og:description", content: product.blurb },
       ],
@@ -98,7 +97,14 @@ function ProductPage() {
                 )}
                 aria-label={`View image ${i + 1}`}
               >
-                <img src={src} alt="" width={1024} height={1024} loading="lazy" className="h-full w-full object-cover" />
+                <img
+                  src={src}
+                  alt=""
+                  width={1024}
+                  height={1024}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
               </button>
             ))}
           </div>

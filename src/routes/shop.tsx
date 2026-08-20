@@ -88,7 +88,9 @@ function Shop() {
                 onClick={() => setSize(size === s ? null : s)}
                 className={cn(
                   "label-caps h-11 w-11 border transition-colors",
-                  size === s ? "border-ink bg-ink text-ink-foreground" : "border-input hover:bg-accent",
+                  size === s
+                    ? "border-ink bg-ink text-ink-foreground"
+                    : "border-input hover:bg-accent",
                 )}
               >
                 {s}

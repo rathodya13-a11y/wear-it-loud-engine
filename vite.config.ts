@@ -12,4 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  nitro: {
+    // Keep client assets at dist/client to match the Netlify publish directory
+    // configured for this site (the netlify preset otherwise writes to dist/).
+    output: { publicDir: "dist/client" },
+  },
 });

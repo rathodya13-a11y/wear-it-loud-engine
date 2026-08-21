@@ -1,0 +1,10 @@
+[build]
+  command = "bun install --frozen-lockfile && bun run build"
+  publish = "dist/client"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # This project uses Bun (bun.lock). Netlify's default npm install fails on the
+  # Vite 8 / Nitro beta peer graph, so install is driven by Bun explicitly above.
+  NETLIFY_USE_BUN = "true"
+  NPM_FLAGS = "--version"

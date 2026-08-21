@@ -132,19 +132,25 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <InventoryProvider>
-        <CartProvider>
-          <AnnouncementBar />
-          <Header />
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <main>
-            <Outlet />
-          </main>
-          <Footer />
-          <CartDrawer />
-          <Toaster />
-        </CartProvider>
-      </InventoryProvider>
+      <AuthProvider>
+        <SiteProvider>
+          <CatalogProvider>
+            <InventoryProvider>
+              <CartProvider>
+                <AnnouncementBar />
+                <Header />
+                {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+                <main>
+                  <Outlet />
+                </main>
+                <Footer />
+                <CartDrawer />
+                <Toaster />
+              </CartProvider>
+            </InventoryProvider>
+          </CatalogProvider>
+        </SiteProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
